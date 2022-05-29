@@ -66,7 +66,7 @@ void VirtualMemoryManager::swapPageIn(int virtAddr)
             // while the page is currently modified 
             while (pageToEject->use) {
                 pageToEject->use = FALSE; // reset the use bit
-                nextVictim = nextVictim + 1; // increment the current physical page number to be inspected for page replacement
+                nextVictim = (nextVictim + 1) % NumPhysPages; // increment the current physical page number to be inspected for page replacement
                 physPageInfo = physicalMemoryInfo + nextVictim;   // reset new TranslationEntry
                 pageToEject = physPageInfo->space->getPageTableEntry(physPageInfo->pageTableIndex); // retrive new physical memory page
             }
